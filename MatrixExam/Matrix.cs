@@ -9,8 +9,8 @@ namespace MatrixExam
     public class Matrix
     {
         protected int n, m;
-        protected int[,] values;
-        protected int[] coefs;
+        protected double[,] values;
+        protected double[] coefs;
 
         /// <summary>
         /// пустой конструктор
@@ -20,7 +20,7 @@ namespace MatrixExam
             Random rnd = new();
             this.n = rnd.Next(2, 6);
             this.m = rnd.Next(2, 6);
-            this.values = new int[n, m];
+            this.values = new double[n, m];
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
@@ -35,7 +35,7 @@ namespace MatrixExam
             Random rnd = new();
             this.n = rows;
             this.m = cols;
-            this.values = new int[n, m];
+            this.values = new double[n, m];
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
@@ -50,7 +50,7 @@ namespace MatrixExam
             Random rnd = new();
             this.n = rows;
             this.m = cols;
-            this.values = new int[n, m];
+            this.values = new double[n, m];
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
@@ -66,14 +66,14 @@ namespace MatrixExam
         /// Конструктор матрицы
         /// </summary>
         /// <param name="values"></param>
-        public Matrix(int[,] values)
+        public Matrix(double[,] values)
         {
             this.m = values.GetLength(1);
             this.n = values.GetLength(0);
             this.values = values;
         }
 
-        public int[] Coefs
+        public double[] Coefs
         {
             get
             {
@@ -113,7 +113,7 @@ namespace MatrixExam
         /// <param name="i">Индекс 1</param>
         /// <param name="j">Индекс 2</param>
         /// <returns>Возвращает int</returns>
-        public int GetElem(int i, int j)
+        public double GetElem(int i, int j)
         {
             return this.values[i, j];
         }
@@ -125,7 +125,7 @@ namespace MatrixExam
         /// <param name="j">Индекс 2</param>
         /// <param name="value">Устанавливаемое значение</param>
         /// <returns>Возвращает int</returns>
-        public int SetElem (int i, int j, int value)
+        public double SetElem (int i, int j, double value)
         {
             return values[i, j] = value;
         }
@@ -215,7 +215,7 @@ namespace MatrixExam
         {
             if (!ErrorCheckMul(m))
                 throw new Exception("Перемножить матрицы нельзя, количество столбцов одной матрицы не равно количеству строк другой матрицы");
-            int[,] res = new int[M, N];
+            double[,] res = new double[M, N];
 
             for (int i = 0; i < N; i++)
             {
@@ -298,15 +298,15 @@ namespace MatrixExam
 
         public override string ToString()
         {
-            int maxLength = values.Cast<int>().Max().ToString().Length;
+            int maxLength = values.Cast<double>().Max().ToString().Length;
 
             return string.Join("\n", Enumerable.Range(0, n)
                 .Select(i => string.Join(" ", Enumerable.Range(0, m)
-                .Select(j => values[i, j].ToString().PadRight(maxLength)))));
+                .Select(j => Math.Round(values[i, j], 3).ToString().PadRight(maxLength)))));
         }
-        public int[,] formTempMatrix(int Column)
+        public double[,] formTempMatrix(int Column)
         {
-            int[,] tempMatrix = new int[N, N];
+            double[,] tempMatrix = new double[N, N];
             Array.Copy(values, tempMatrix, values.Length);
             for (int i = 0; i < N; i++)
             {

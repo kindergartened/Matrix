@@ -70,6 +70,8 @@
             label15 = new Label();
             groupBox1 = new GroupBox();
             parseMatrix = new Button();
+            button1 = new Button();
+            currentCoefs = new Label();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -141,7 +143,7 @@
             // isSymmetric
             // 
             isSymmetric.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            isSymmetric.Location = new Point(1264, 753);
+            isSymmetric.Location = new Point(1264, 727);
             isSymmetric.Name = "isSymmetric";
             isSymmetric.Size = new Size(464, 51);
             isSymmetric.TabIndex = 6;
@@ -152,7 +154,7 @@
             // determinant
             // 
             determinant.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            determinant.Location = new Point(1264, 810);
+            determinant.Location = new Point(1264, 784);
             determinant.Name = "determinant";
             determinant.Size = new Size(196, 51);
             determinant.TabIndex = 7;
@@ -163,12 +165,13 @@
             // solve
             // 
             solve.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            solve.Location = new Point(1532, 810);
+            solve.Location = new Point(1532, 784);
             solve.Name = "solve";
             solve.Size = new Size(196, 51);
             solve.TabIndex = 8;
             solve.Text = "Решение СЛАУ";
             solve.UseVisualStyleBackColor = true;
+            solve.Click += solve_Click;
             // 
             // resultMatrix
             // 
@@ -182,7 +185,7 @@
             // freeCoefs
             // 
             freeCoefs.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            freeCoefs.Location = new Point(1251, 950);
+            freeCoefs.Location = new Point(1125, 918);
             freeCoefs.Name = "freeCoefs";
             freeCoefs.Size = new Size(477, 32);
             freeCoefs.TabIndex = 10;
@@ -191,7 +194,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(1251, 912);
+            label1.Location = new Point(1125, 880);
             label1.Name = "label1";
             label1.Size = new Size(453, 25);
             label1.TabIndex = 11;
@@ -402,16 +405,18 @@
             // inverse
             // 
             inverse.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            inverse.Location = new Point(1264, 696);
+            inverse.Location = new Point(1264, 670);
             inverse.Name = "inverse";
             inverse.Size = new Size(464, 51);
             inverse.TabIndex = 34;
             inverse.Text = "Обратная матрица";
             inverse.UseVisualStyleBackColor = true;
+            inverse.Click += inverse_Click;
             // 
             // isFirst
             // 
             isFirst.AutoSize = true;
+            isFirst.Checked = true;
             isFirst.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
             isFirst.Location = new Point(1246, 123);
             isFirst.Name = "isFirst";
@@ -429,7 +434,6 @@
             isSecond.Name = "isSecond";
             isSecond.Size = new Size(192, 34);
             isSecond.TabIndex = 36;
-            isSecond.TabStop = true;
             isSecond.Text = "Вторая матрица";
             isSecond.UseVisualStyleBackColor = true;
             // 
@@ -500,11 +504,38 @@
             parseMatrix.UseVisualStyleBackColor = false;
             parseMatrix.Click += parseMatrix_Click;
             // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.MenuHighlight;
+            button1.FlatStyle = FlatStyle.Popup;
+            button1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.ForeColor = SystemColors.Window;
+            button1.Location = new Point(1656, 899);
+            button1.Name = "button1";
+            button1.Size = new Size(196, 51);
+            button1.TabIndex = 42;
+            button1.Text = "Подтвердить";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
+            // currentCoefs
+            // 
+            currentCoefs.AutoSize = true;
+            currentCoefs.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            currentCoefs.ForeColor = SystemColors.ButtonShadow;
+            currentCoefs.Location = new Point(1125, 975);
+            currentCoefs.Name = "currentCoefs";
+            currentCoefs.Size = new Size(226, 25);
+            currentCoefs.TabIndex = 43;
+            currentCoefs.Text = "Текущие коэффициенты:";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1904, 1041);
+            Controls.Add(currentCoefs);
+            Controls.Add(button1);
             Controls.Add(groupBox1);
             Controls.Add(label13);
             Controls.Add(isSecond);
@@ -595,5 +626,7 @@
         private Label label15;
         private GroupBox groupBox1;
         private Button parseMatrix;
+        private Button button1;
+        private Label currentCoefs;
     }
 }

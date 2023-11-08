@@ -18,13 +18,13 @@ namespace MatrixForm
                 string[] arr = thirdMatrix.Text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
                 int rows = arr.Length;
                 int cols = arr[0].Split(' ').Length;
-                int[,] values = new int[rows, cols];
+                double[,] values = new double[rows, cols];
                 for (int i = 0; i < rows; i++)
                 {
                     string[] rowValues = arr[i].Split(' ');
                     for (int j = 0; j < cols; j++)
                     {
-                        values[i, j] = int.Parse(rowValues[j]);
+                        values[i, j] = double.Parse(rowValues[j]);
                     }
                 }
                 if (isFirst.Checked)
@@ -234,6 +234,68 @@ namespace MatrixForm
                 else
                 {
                     MessageBox.Show("Детерминант матрицы 2: " + matrix2.Determinant().ToString());
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
+        }
+
+        private void solve_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MessageBox.Show(isFirst.Checked ? string.Join("\n", matrix1.SolveEquations()) : string.Join("\n", matrix2.SolveEquations()));
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                double[] coefsArr;
+                if (isFirst.Checked)
+                {
+                    coefsArr = Array.ConvertAll(freeCoefs.Text.Split(","), s => double.Parse(s));
+                    if (matrix1.N != coefsArr.Length)
+                    {
+                        MessageBox.Show("Количество коэффициентов должно быть равно количеству строк матрицы.");
+                    }
+                    matrix1.Coefs = coefsArr;
+                }
+                else
+                {
+                    coefsArr = Array.ConvertAll(freeCoefs.Text.Split(","), s => double.Parse(s));
+                    if (matrix2.N != coefsArr.Length)
+                    {
+                        MessageBox.Show("Количество коэффициентов должно быть равно количеству строк матрицы.");
+                    }
+                    matrix2.Coefs = coefsArr;
+                }
+                currentCoefs.Text = "Текущие коэффициенты: " + string.Join(", ", coefsArr);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
+        }
+
+        private void inverse_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (isFirst.Checked)
+                {
+                    resultMatrix.Text = matrix1.Inverse().ToString();
+                }
+                else
+                {
+                    resultMatrix.Text = matrix2.Inverse().ToString();
                 }
             }
             catch (Exception err)
