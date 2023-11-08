@@ -9,3 +9,14 @@ D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\Matr
 D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\obj\Debug\net6.0\refint\MatrixExam.dll
 D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\obj\Debug\net6.0\MatrixExam.pdb
 D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\obj\Debug\net6.0\ref\MatrixExam.dll
+D:\Studies\c#\Matrixx\MatrixExam\bin\Debug\net6.0\MatrixExam.deps.json
+D:\Studies\c#\Matrixx\MatrixExam\bin\Debug\net6.0\MatrixExam.dll
+D:\Studies\c#\Matrixx\MatrixExam\bin\Debug\net6.0\MatrixExam.pdb
+D:\Studies\c#\Matrixx\MatrixExam\obj\Debug\net6.0\MatrixExam.GeneratedMSBuildEditorConfig.editorconfig
+D:\Studies\c#\Matrixx\MatrixExam\obj\Debug\net6.0\MatrixExam.AssemblyInfoInputs.cache
+D:\Studies\c#\Matrixx\MatrixExam\obj\Debug\net6.0\MatrixExam.AssemblyInfo.cs
+D:\Studies\c#\Matrixx\MatrixExam\obj\Debug\net6.0\MatrixExam.csproj.CoreCompileInputs.cache
+D:\Studies\c#\Matrixx\MatrixExam\obj\Debug\net6.0\MatrixExam.dll
+D:\Studies\c#\Matrixx\MatrixExam\obj\Debug\net6.0\refint\MatrixExam.dll
+D:\Studies\c#\Matrixx\MatrixExam\obj\Debug\net6.0\MatrixExam.pdb
+D:\Studies\c#\Matrixx\MatrixExam\obj\Debug\net6.0\ref\MatrixExam.dll

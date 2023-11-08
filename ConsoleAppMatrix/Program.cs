@@ -8,9 +8,9 @@ namespace ConsoleAppMatrix
         static void Main()
         {
             int[,] values = {
+            { 4, 2342343, 2, 4441 },
             { 4, 3, 2, 1 },
-            { 4, 3, 2, 1 },
-            { 4, 3, 2, 1 }
+            { 4, 3, 332, 1 }
             };
             int[,] arr = {
             { 1, 2, 3},
@@ -23,6 +23,7 @@ namespace ConsoleAppMatrix
             Matrix m2 = new Matrix(arr);
             Matrix act = m1.MatMul(m2);
 
+
             for (int i = 0; i < act.N; i++)
             {
                 for (int j = 0; j < act.M; j++)
@@ -31,6 +32,9 @@ namespace ConsoleAppMatrix
                 }
                 Console.WriteLine();
             }
+
+            Console.WriteLine();
+            Console.WriteLine(m1.ToString());
 
         }
     }

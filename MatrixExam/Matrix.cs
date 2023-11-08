@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 
 namespace MatrixExam
 {
@@ -7,17 +8,56 @@ namespace MatrixExam
     /// </summary>
     public class Matrix
     {
-        private int n, m;
-        private int[,] values;
+        protected int n, m;
+        protected int[,] values;
+        protected int[] coefs;
 
         /// <summary>
         /// пустой конструктор
         /// </summary>
-        public Matrix() 
+        public Matrix()
         {
-            this.n = 2;
-            this.m = 3;
+            Random rnd = new();
+            this.n = rnd.Next(2, 6);
+            this.m = rnd.Next(2, 6);
             this.values = new int[n, m];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    values[i, j] = rnd.Next(10, 100);
+                }
+            }
+        }
+
+        public Matrix(int rows, int cols)
+        {
+            Random rnd = new();
+            this.n = rows;
+            this.m = cols;
+            this.values = new int[n, m];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    values[i, j] = rnd.Next(10, 100);
+                }
+            }
+        }
+
+        public Matrix(int rows, int cols, int min, int max)
+        {
+            Random rnd = new();
+            this.n = rows;
+            this.m = cols;
+            this.values = new int[n, m];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    values[i, j] = rnd.Next(min, max);
+                }
+            }
         }
         public int N => n;
         public int M => m;
@@ -31,6 +71,18 @@ namespace MatrixExam
             this.m = values.GetLength(1);
             this.n = values.GetLength(0);
             this.values = values;
+        }
+
+        public int[] Coefs
+        {
+            get
+            {
+                return coefs;
+            }
+            set
+            {
+                coefs = value;
+            }
         }
 
         /// <summary>
@@ -180,6 +232,27 @@ namespace MatrixExam
             return new Matrix(res);
         }
 
+        public bool IsSymmetric()
+        {
+            if (N != M)
+            {
+                return false; // Неквадратная матрица не может быть симметричной
+            }
+
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = i + 1; j < M; j++)
+                {
+                    if (GetElem(i, j) != GetElem(j, i))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         public static Matrix operator *(Matrix m, int num)
         {
             return m.MatMulNum(num);
@@ -221,6 +294,26 @@ namespace MatrixExam
             }
 
             return true;
+        }
+
+        public override string ToString()
+        {
+            int maxLength = values.Cast<int>().Max().ToString().Length;
+
+            return string.Join("\n", Enumerable.Range(0, n)
+                .Select(i => string.Join(" ", Enumerable.Range(0, m)
+                .Select(j => values[i, j].ToString().PadRight(maxLength)))));
+        }
+        public int[,] formTempMatrix(int Column)
+        {
+            int[,] tempMatrix = new int[N, N];
+            Array.Copy(values, tempMatrix, values.Length);
+            for (int i = 0; i < N; i++)
+            {
+                (tempMatrix[i, Column]) = (coefs[i]);
+
+            }
+            return tempMatrix;
         }
     }
 }
