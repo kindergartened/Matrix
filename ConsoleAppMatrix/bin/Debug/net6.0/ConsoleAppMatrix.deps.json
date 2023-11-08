@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "ConsoleAppMatrix/1.0.0": {
+        "dependencies": {
+          "MatrixExam": "1.0.0"
+        },
+        "runtime": {
+          "ConsoleAppMatrix.dll": {}
+        }
+      },
+      "MatrixExam/1.0.0": {
+        "runtime": {
+          "MatrixExam.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ConsoleAppMatrix/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MatrixExam/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

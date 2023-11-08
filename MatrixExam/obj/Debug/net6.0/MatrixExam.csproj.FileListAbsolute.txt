@@ -1,0 +1,11 @@
+D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\bin\Debug\net6.0\MatrixExam.deps.json
+D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\bin\Debug\net6.0\MatrixExam.dll
+D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\bin\Debug\net6.0\MatrixExam.pdb
+D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\obj\Debug\net6.0\MatrixExam.GeneratedMSBuildEditorConfig.editorconfig
+D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\obj\Debug\net6.0\MatrixExam.AssemblyInfoInputs.cache
+D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\obj\Debug\net6.0\MatrixExam.AssemblyInfo.cs
+D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\obj\Debug\net6.0\MatrixExam.csproj.CoreCompileInputs.cache
+D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\obj\Debug\net6.0\MatrixExam.dll
+D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\obj\Debug\net6.0\refint\MatrixExam.dll
+D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\obj\Debug\net6.0\MatrixExam.pdb
+D:\PROG\ТВГТУ\ПРОГРАММИРОВАНИЕ\БИЛЛИГ\MatrixExam\MatrixExam\obj\Debug\net6.0\ref\MatrixExam.dll
