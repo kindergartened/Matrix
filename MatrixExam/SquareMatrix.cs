@@ -70,54 +70,15 @@ namespace MatrixExam
 
         public double Determinant()
         {
-            return MatrixDeterminant(values);
+            return CalculateDeterminant(values, n);
         }
-
-        double MatrixDeterminant(double[,] matrix)
-        {
-            if (matrix.GetLength(0) == 1) return matrix[0, 0];
-            if (matrix.GetLength(0) == 2) return (matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0]);
-            double Determinant = 0;
-            double[,] TempMatrix;
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                TempMatrix = SpliceMatrix(matrix, 0, i);
-                Determinant += Math.Pow(-1, i) * matrix[0, i] * MatrixDeterminant(TempMatrix);
-            }
-            return Determinant;
-
-            double[,] SpliceMatrix(double[,] matrix, int Column, int Row)
-            {
-                double[,] NewMatrix = new double[matrix.GetLength(0) - 1, matrix.GetLength(0) - 1];
-                int m = 0, n = 0;
-                for (int i = 0; i < matrix.GetLength(0); i++, m++)
-                {
-                    if (i != Column)
-                    {
-                        n = 0;
-                        for (int j = 0; j < matrix.GetLength(0); j++)
-                        {
-                            if (j != Row)
-                            {
-                                NewMatrix[m, n] = matrix[i, j];
-                                n++;
-                            }
-                        }
-                    }
-                    else
-                        m--;
-                }
-                return NewMatrix;
-            }
-        }
-
         public double[] SolveEquations()
         {
             double[] result = new double[n];
-            double determinant = MatrixDeterminant(values);
+            double determinant = CalculateDeterminant(values, n);
             for (int i = 0; i < n; i++)
             {
-                result[i] = Math.Round((double)MatrixDeterminant(formTempMatrix(i)) / determinant, 3);
+                result[i] = Math.Round((double)CalculateDeterminant(formTempMatrix(i), n) / determinant, 3);
             }
             return result;
         }
