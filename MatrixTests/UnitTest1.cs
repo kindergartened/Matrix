@@ -1,4 +1,6 @@
 using MatrixExam;
+using System;
+
 namespace MatrixTests
 {
     [TestClass]
@@ -7,18 +9,18 @@ namespace MatrixTests
         [TestMethod]
         public void TestMatAdd()
         {
-            int[,] values = {
+            double[,] values = {
                 {4,3,2,1},
                 {4,3,2,1},
                 {4,3,2,1}
             };
-            int[,] arr = {
+            double[,] arr = {
                 {1,2,3,4},
                 {1,2,3,4},
                 {1,2,3,4}
             };
 
-            int[,] excepted = {
+            double[,] excepted = {
                 {5,5,5,5},
                 {5,5,5,5},
                 {5,5,5,5}
@@ -34,18 +36,18 @@ namespace MatrixTests
         [TestMethod]
         public void TestMatSub()
         {
-            int[,] values = {
+            double[,] values = {
             { 5, 4, 3, 2 },
             { 5, 4, 3, 2 },
             { 5, 4, 3, 2 }
             };
-            int[,] arr = {
+            double[,] arr = {
             { 4, 3, 2, 1 },
             { 4, 3, 2, 1 },
             { 4, 3, 2, 1 }
             };
 
-            int[,] excepted = {
+            double[,] excepted = {
             { 1, 1, 1, 1 },
             { 1, 1, 1, 1 },
             { 1, 1, 1, 1 }
@@ -61,7 +63,7 @@ namespace MatrixTests
         [TestMethod]
         public void TestMatMulNum()
         {
-            int[,] values = {
+            double[,] values = {
             { 4, 3, 2, 1 },
             { 4, 3, 2, 1 },
             { 4, 3, 2, 1 }
@@ -69,7 +71,7 @@ namespace MatrixTests
 
             int num = 5;
 
-            int[,] excepted = {
+            double[,] excepted = {
             { 20, 15, 10, 5 },
             { 20, 15, 10, 5 },
             { 20, 15, 10, 5 }
@@ -86,19 +88,19 @@ namespace MatrixTests
         [TestMethod]
         public void TestMatMul()
         {
-            int[,] values = {
+            double[,] values = {
             { 4, 3, 2, 1 },
             { 4, 3, 2, 1 },
             { 4, 3, 2, 1 }
             };
-            int[,] arr = {
+            double[,] arr = {
             { 1, 2, 3},
             { 1, 2, 3},
             { 1, 2, 3},
             { 1, 2, 3}
             };
 
-            int[,] excepted = {
+            double[,] excepted = {
             { 10, 20, 30 },
             { 10, 20, 30 },
             { 10, 20, 30 }

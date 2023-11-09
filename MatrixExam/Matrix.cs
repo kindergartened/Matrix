@@ -104,7 +104,7 @@ namespace MatrixExam
         /// <returns>Возвращает значение true или false в зависимости от выполнения условий сравнения</returns>
         private bool ErrorCheckMul(Matrix m)
         {
-            return (this.N == m.M && this.M == m.N) || (this.M == m.n && this.N == m.M);
+            return  (this.M == m.n );
         }
 
         /// <summary>
@@ -215,16 +215,16 @@ namespace MatrixExam
         {
             if (!ErrorCheckMul(m))
                 throw new Exception("Перемножить матрицы нельзя, количество столбцов одной матрицы не равно количеству строк другой матрицы");
-            double[,] res = new double[M, N];
+            double[,] res = new double[N, m.M];
 
             for (int i = 0; i < N; i++)
             {
                 for (int j = 0; j < N; j++)
                 {
                     res[i, j] = 0;
-                    for (int k = 0; k < M; k++)
+                    for (int k = 0; k < m.M; k++)
                     {
-                        res[i, j] = res[i,j] + values[i,k]*m.GetElem(k,j);
+                        res[i, j] = res[i,j] + values[k,i]*m.GetElem(k,j);
                     }
                 }
             }
@@ -311,7 +311,6 @@ namespace MatrixExam
             for (int i = 0; i < N; i++)
             {
                 (tempMatrix[i, Column]) = (coefs[i]);
-
             }
             return tempMatrix;
         }

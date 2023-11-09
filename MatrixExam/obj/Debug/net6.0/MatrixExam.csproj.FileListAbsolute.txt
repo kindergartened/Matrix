@@ -20,3 +20,15 @@ D:\Studies\c#\Matrixx\MatrixExam\obj\Debug\net6.0\MatrixExam.dll
 D:\Studies\c#\Matrixx\MatrixExam\obj\Debug\net6.0\refint\MatrixExam.dll
 D:\Studies\c#\Matrixx\MatrixExam\obj\Debug\net6.0\MatrixExam.pdb
 D:\Studies\c#\Matrixx\MatrixExam\obj\Debug\net6.0\ref\MatrixExam.dll
+F:\billigmatrix\MatrixExam\bin\Debug\net6.0\MatrixExam.deps.json
+F:\billigmatrix\MatrixExam\bin\Debug\net6.0\MatrixExam.dll
+F:\billigmatrix\MatrixExam\bin\Debug\net6.0\MatrixExam.pdb
+F:\billigmatrix\MatrixExam\obj\Debug\net6.0\MatrixExam.csproj.AssemblyReference.cache
+F:\billigmatrix\MatrixExam\obj\Debug\net6.0\MatrixExam.GeneratedMSBuildEditorConfig.editorconfig
+F:\billigmatrix\MatrixExam\obj\Debug\net6.0\MatrixExam.AssemblyInfoInputs.cache
+F:\billigmatrix\MatrixExam\obj\Debug\net6.0\MatrixExam.AssemblyInfo.cs
+F:\billigmatrix\MatrixExam\obj\Debug\net6.0\MatrixExam.csproj.CoreCompileInputs.cache
+F:\billigmatrix\MatrixExam\obj\Debug\net6.0\MatrixExam.dll
+F:\billigmatrix\MatrixExam\obj\Debug\net6.0\refint\MatrixExam.dll
+F:\billigmatrix\MatrixExam\obj\Debug\net6.0\MatrixExam.pdb
+F:\billigmatrix\MatrixExam\obj\Debug\net6.0\ref\MatrixExam.dll
