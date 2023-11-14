@@ -314,5 +314,14 @@ namespace MatrixExam
             }
             return tempMatrix;
         }
+
+        public Matrix Transpose()
+        {
+            double[,] transposedMatrix = new double[m, n];
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < m; j++)
+                    transposedMatrix[j, i] = values[i, j];
+            return new Matrix(transposedMatrix);
+        }
     }
 }

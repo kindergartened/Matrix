@@ -56,7 +56,7 @@ namespace MatrixForm
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.ToString());
+                MessageBox.Show(err.Message);
             }
         }
 
@@ -110,7 +110,7 @@ namespace MatrixForm
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.ToString());
+                MessageBox.Show(err.Message);
             }
         }
 
@@ -164,7 +164,7 @@ namespace MatrixForm
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.ToString());
+                MessageBox.Show(err.Message);
             }
         }
 
@@ -176,7 +176,7 @@ namespace MatrixForm
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.ToString());
+                MessageBox.Show(err.Message);
             }
         }
 
@@ -188,7 +188,7 @@ namespace MatrixForm
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.ToString());
+                MessageBox.Show(err.Message);
             }
         }
 
@@ -200,7 +200,7 @@ namespace MatrixForm
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.ToString());
+                MessageBox.Show(err.Message);
             }
         }
 
@@ -219,7 +219,7 @@ namespace MatrixForm
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.ToString());
+                MessageBox.Show(err.Message);
             }
         }
 
@@ -238,7 +238,7 @@ namespace MatrixForm
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.ToString());
+                MessageBox.Show(err.Message);
             }
         }
 
@@ -250,7 +250,7 @@ namespace MatrixForm
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.ToString());
+                MessageBox.Show(err.Message);
             }
         }
 
@@ -281,7 +281,7 @@ namespace MatrixForm
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.ToString());
+                MessageBox.Show(err.Message);
             }
         }
 
@@ -300,7 +300,26 @@ namespace MatrixForm
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.ToString());
+                MessageBox.Show(err.Message);
+            }
+        }
+
+        private void transpose_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (isFirst.Checked)
+                {
+                    resultMatrix.Text = matrix1.Transpose().ToString();
+                }
+                else
+                {
+                    resultMatrix.Text = matrix2.Transpose().ToString();
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
             }
         }
     }

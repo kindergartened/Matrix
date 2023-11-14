@@ -96,102 +96,186 @@ namespace MatrixExam
             return true;
         }
 
-        public Matrix Inverse()
+        public SquareMatrix Inverse()
         {
             if (N != M)
             {
                 throw new InvalidOperationException("Матрица должна быть квадратной для вычисления обратной матрицы.");
             }
 
-            int n = N;
-            double[,] inverseMatrix = new double[n, n];
+            double[,] augmentedMatrix = new double[n, 2 * n];
             double determinant = CalculateDeterminant(values, n);
-
-            if (n == 2 && m == 2)
-            {
-                inverseMatrix[0, 0] = values[1, 1] / determinant;
-                inverseMatrix[0, 1] = -values[0, 1] / determinant;
-                inverseMatrix[1, 0] = -values[1, 0] / determinant;
-                inverseMatrix[1, 1] = values[0, 0] / determinant;
-                return new Matrix(inverseMatrix);
-            }
+            double[,] inverseMatrix;
 
             if (determinant == 0)
             {
                 throw new InvalidOperationException("Матрица не имеет обратной матрицы (определитель равен нулю).");
             }
 
+            if (n == 2 && m == 2)
+            {
+                inverseMatrix = new double[n, m];
+                inverseMatrix[0, 0] = values[1, 1] / determinant;
+                inverseMatrix[0, 1] = -values[0, 1] / determinant;
+                inverseMatrix[1, 0] = -values[1, 0] / determinant;
+                inverseMatrix[1, 1] = values[0, 0] / determinant;
+                return new SquareMatrix(inverseMatrix);
+            }
+
+            // Создаем расширенную матрицу [A | I]
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
-                    double cofactor = CalculateCofactor(values, n, i, j);
-                    inverseMatrix[j, i] = cofactor / determinant;
+                    augmentedMatrix[i, j] = values[i, j];
+                    augmentedMatrix[i, j + n] = (i == j) ? 1.0 : 0.0;
                 }
             }
 
-            return new Matrix(inverseMatrix);
+            // Приводим к верхнетреугольному виду
+            for (int i = 0; i < n; i++)
+            {
+                // Находим главный элемент в текущем столбце
+                int pivotRow = i;
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (Math.Abs(augmentedMatrix[j, i]) > Math.Abs(augmentedMatrix[pivotRow, i]))
+                    {
+                        pivotRow = j;
+                    }
+                }
+
+                // Обмениваем строки
+                for (int k = 0; k < 2 * n; k++)
+                {
+                    double temp = augmentedMatrix[i, k];
+                    augmentedMatrix[i, k] = augmentedMatrix[pivotRow, k];
+                    augmentedMatrix[pivotRow, k] = temp;
+                }
+
+                // Обнуляем элементы под главным элементом
+                for (int j = i + 1; j < n; j++)
+                {
+                    double factor = augmentedMatrix[j, i] / augmentedMatrix[i, i];
+                    for (int k = 0; k < 2 * n; k++)
+                    {
+                        augmentedMatrix[j, k] -= factor * augmentedMatrix[i, k];
+                    }
+                }
+            }
+
+            // Приводим к диагональному виду
+            for (int i = n - 1; i >= 0; i--)
+            {
+                double pivot = augmentedMatrix[i, i];
+                if (pivot == 0.0)
+                {
+                    throw new InvalidOperationException("Матрица не имеет обратной матрицы (определитель равен нулю).");
+                }
+
+                // Нормализуем строку
+                for (int k = 0; k < 2 * n; k++)
+                {
+                    augmentedMatrix[i, k] /= pivot;
+                }
+
+                // Обнуляем элементы над главным элементом
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    double factor = augmentedMatrix[j, i];
+                    for (int k = 0; k < 2 * n; k++)
+                    {
+                        augmentedMatrix[j, k] -= factor * augmentedMatrix[i, k];
+                    }
+                }
+            }
+
+            // Извлекаем обратную матрицу из правой части расширенной матрицы
+            inverseMatrix = new double[n, n];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    inverseMatrix[i, j] = augmentedMatrix[i, j + n];
+                }
+            }
+
+            return new SquareMatrix(inverseMatrix);
         }
 
         private double CalculateDeterminant(double[,] matrix, int n)
         {
-            if (n == 2)
-            {
-                return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
-            }
+            double[,] triangularMatrix = new double[n, n];
+            Array.Copy(matrix, triangularMatrix, n * n);
 
-            double determinant = 0;
-            int sign = 1;
+            double determinant = 1;
 
             for (int i = 0; i < n; i++)
             {
-                double[,] submatrix = new double[n - 1, n - 1];
-                for (int j = 1; j < n; j++)
+                int pivotRow = i;
+
+                // Поиск максимального элемента в столбце для выбора ведущего элемента
+                for (int j = i + 1; j < n; j++)
                 {
-                    for (int k = 0; k < n; k++)
+                    if (Math.Abs(triangularMatrix[j, i]) > Math.Abs(triangularMatrix[pivotRow, i]))
                     {
-                        if (k < i)
-                        {
-                            submatrix[j - 1, k] = matrix[j, k];
-                        }
-                        else if (k > i)
-                        {
-                            submatrix[j - 1, k - 1] = matrix[j, k];
-                        }
+                        pivotRow = j;
                     }
                 }
-                determinant += sign * matrix[0, i] * CalculateDeterminant(submatrix, n - 1);
-                sign = -sign;
+
+                if (triangularMatrix[pivotRow, i] == 0)
+                {
+                    return 0; // Если встречается нулевой ведущий элемент, то матрица вырожденная
+                }
+
+                // Обмен строк для улучшения стабильности вычислений
+                if (pivotRow != i)
+                {
+                    SwapRows(triangularMatrix, i, pivotRow);
+                    determinant = -determinant;
+                }
+
+                determinant *= triangularMatrix[i, i];
+
+                // Обнуление элементов под ведущим элементом
+                for (int j = i + 1; j < n; j++)
+                {
+                    double factor = triangularMatrix[j, i] / triangularMatrix[i, i];
+                    for (int k = i; k < n; k++)
+                    {
+                        triangularMatrix[j, k] -= factor * triangularMatrix[i, k];
+                    }
+                }
             }
 
             return determinant;
         }
 
-        private double CalculateCofactor(double[,] matrix, int n, int row, int col)
+        private void SwapRows(double[,] matrix, int row1, int row2)
         {
-            double[,] submatrix = new double[n - 1, n - 1];
-            int subrow = 0;
-            for (int i = 0; i < n; i++)
+            int cols = matrix.GetLength(1);
+            for (int i = 0; i < cols; i++)
             {
-                if (i == row)
-                {
-                    continue;
-                }
-                int subcol = 0;
-                for (int j = 0; j < n; j++)
-                {
-                    if (j == col)
-                    {
-                        continue;
-                    }
-                    submatrix[subrow, subcol] = matrix[i, j];
-                    subcol++;
-                }
-                subrow++;
+                double temp = matrix[row1, i];
+                matrix[row1, i] = matrix[row2, i];
+                matrix[row2, i] = temp;
             }
-            int sign = ((row + col) % 2 == 0) ? 1 : -1;
-            return sign * CalculateDeterminant(submatrix, n - 1);
         }
 
+        public SquareMatrix Transpose()
+        {
+            int size = values.GetLength(0);
+
+            // Оптимизированный цикл для транспонирования
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = i + 1; j < size; j++)
+                {
+                    // Меняем местами элементы выше и ниже главной диагонали
+                    (values[i, j], values[j, i]) = (values[j, i], values[i, j]);
+                }
+            }
+            return this;
+        }
     }
 }

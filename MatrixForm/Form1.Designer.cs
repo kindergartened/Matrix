@@ -72,6 +72,7 @@
             parseMatrix = new Button();
             button1 = new Button();
             currentCoefs = new Label();
+            transpose = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -143,9 +144,9 @@
             // isSymmetric
             // 
             isSymmetric.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            isSymmetric.Location = new Point(1264, 727);
+            isSymmetric.Location = new Point(1239, 729);
             isSymmetric.Name = "isSymmetric";
-            isSymmetric.Size = new Size(464, 51);
+            isSymmetric.Size = new Size(499, 51);
             isSymmetric.TabIndex = 6;
             isSymmetric.Text = "Проверка на симметричность";
             isSymmetric.UseVisualStyleBackColor = true;
@@ -154,7 +155,7 @@
             // determinant
             // 
             determinant.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            determinant.Location = new Point(1264, 784);
+            determinant.Location = new Point(1239, 786);
             determinant.Name = "determinant";
             determinant.Size = new Size(196, 51);
             determinant.TabIndex = 7;
@@ -165,7 +166,7 @@
             // solve
             // 
             solve.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            solve.Location = new Point(1532, 784);
+            solve.Location = new Point(1542, 786);
             solve.Name = "solve";
             solve.Size = new Size(196, 51);
             solve.TabIndex = 8;
@@ -405,9 +406,9 @@
             // inverse
             // 
             inverse.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            inverse.Location = new Point(1264, 670);
+            inverse.Location = new Point(1239, 672);
             inverse.Name = "inverse";
-            inverse.Size = new Size(464, 51);
+            inverse.Size = new Size(242, 51);
             inverse.TabIndex = 34;
             inverse.Text = "Обратная матрица";
             inverse.UseVisualStyleBackColor = true;
@@ -529,11 +530,23 @@
             currentCoefs.TabIndex = 43;
             currentCoefs.Text = "Текущие коэффициенты:";
             // 
+            // transpose
+            // 
+            transpose.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            transpose.Location = new Point(1496, 672);
+            transpose.Name = "transpose";
+            transpose.Size = new Size(242, 51);
+            transpose.TabIndex = 44;
+            transpose.Text = "Транспонирование";
+            transpose.UseVisualStyleBackColor = true;
+            transpose.Click += transpose_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1904, 1041);
+            Controls.Add(transpose);
             Controls.Add(currentCoefs);
             Controls.Add(button1);
             Controls.Add(groupBox1);
@@ -628,5 +641,6 @@
         private Button parseMatrix;
         private Button button1;
         private Label currentCoefs;
+        private Button transpose;
     }
 }
