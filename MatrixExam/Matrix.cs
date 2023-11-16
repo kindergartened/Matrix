@@ -223,18 +223,15 @@ namespace MatrixExam
                 throw new Exception("Перемножить матрицы нельзя, количество столбцов одной матрицы не равно количеству строк другой матрицы");
             double[,] res = new double[N, m.M];
 
-            for (int i = 0; i < N; i++)
+            for (int i = 0; i < N; ++i)
             {
-                for (int j = 0; j < N; j++)
+                for (int j = 0; j < m.M; ++j)
                 {
                     res[i, j] = 0;
-                    for (int k = 0; k < m.M; k++)
-                    {
-                        res[i, j] = res[i,j] + values[k,i]*m.GetElem(k,j);
-                    }
+                    for (int k = 0; k < N; ++k)
+                        res[i, j] += values[i, k] * m.GetElem(k, j);
                 }
             }
-
             return new Matrix(res);
         }
 
