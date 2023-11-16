@@ -4,6 +4,9 @@ namespace MatrixExam
 {
     public class SquareMatrix : Matrix
     {
+        /// <summary>
+        /// конструктор по умолчанию
+        /// </summary>
         public SquareMatrix() : base()
         {
             Random rnd = new();
@@ -18,7 +21,11 @@ namespace MatrixExam
                 }
             }
         }
-
+        /// <summary>
+        /// конструктор
+        /// </summary>
+        /// <param name="values"></param>
+        /// <exception cref="ArgumentException"></exception>
         public SquareMatrix(double[,] values) : base(values)
         {
             if (values.GetLength(0) != values.GetLength(1))
@@ -29,7 +36,12 @@ namespace MatrixExam
             this.n = values.GetLength(0);
             this.values = values;
         }
-
+        /// <summary>
+        /// конструктор для создания случайной матрицы (элементы не заданы,поэтому мы их задаём сами)
+        /// </summary>
+        /// <param name="rows">ряды</param>
+        /// <param name="cols">колонки</param>
+        /// <exception cref="ArgumentException"></exception>
         public SquareMatrix(int rows, int cols) : base(rows, cols)
         {
             Random rnd = new();
@@ -48,7 +60,14 @@ namespace MatrixExam
                 }
             }
         }
-
+        /// <summary>
+        /// конструктор для  создания случайной квадтратной матрицы
+        /// </summary>
+        /// <param name="rows">ряды</param>
+        /// <param name="cols">колонки</param>
+        /// <param name="min">минимальное значение</param>
+        /// <param name="max">максимальное значение</param>
+        /// <exception cref="ArgumentException"></exception>
         public SquareMatrix(int rows, int cols, int min, int max) : base(rows, cols, min, max)
         {
             Random rnd = new();
@@ -67,11 +86,18 @@ namespace MatrixExam
                 }
             }
         }
-
+        /// <summary>
+        /// метод для вычисления детерминанта
+        /// </summary>
+        /// <returns></returns>
         public double Determinant()
         {
             return CalculateDeterminant(values, n);
         }
+        /// <summary>
+        /// решение СЛАУ
+        /// </summary>
+        /// <returns></returns>
         public double[] SolveEquations()
         {
             double[] result = new double[n];
@@ -82,7 +108,11 @@ namespace MatrixExam
             }
             return result;
         }
-
+        /// <summary>
+        /// сравнение
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object? obj)
         {
             if (obj is not SquareMatrix sm) return false;
@@ -95,7 +125,11 @@ namespace MatrixExam
 
             return true;
         }
-
+        /// <summary>
+        /// метод для вычисления обратной матрицы
+        /// </summary>
+        /// <returns>обратную матрицу</returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public SquareMatrix Inverse()
         {
             if (N != M)
@@ -202,7 +236,12 @@ namespace MatrixExam
 
             return new SquareMatrix(inverseMatrix);
         }
-
+        /// <summary>
+        /// метод CalculateDeterminant для вычисления детерминанта
+        /// </summary>
+        /// <param name="matrix">матрица</param>
+        /// <param name="n">размер матрицы</param>
+        /// <returns></returns>
         private double CalculateDeterminant(double[,] matrix, int n)
         {
             double[,] triangularMatrix = new double[n, n];
@@ -250,7 +289,12 @@ namespace MatrixExam
 
             return determinant;
         }
-
+        /// <summary>
+        /// смена рядов в заданной матрице
+        /// </summary>
+        /// <param name="matrix">матрицы</param>
+        /// <param name="row1">ряд 1</param>
+        /// <param name="row2">ряд 2</param>
         private void SwapRows(double[,] matrix, int row1, int row2)
         {
             int cols = matrix.GetLength(1);
@@ -261,7 +305,10 @@ namespace MatrixExam
                 matrix[row2, i] = temp;
             }
         }
-
+        /// <summary>
+        /// транспонирование квадратной матрицы
+        /// </summary>
+        /// <returns></returns>
         public SquareMatrix Transpose()
         {
             int size = values.GetLength(0);
