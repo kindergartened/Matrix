@@ -30,6 +30,11 @@ namespace MatrixExam
             }
         }
 
+        /// <summary>
+        /// Конструктор с фиксированной размерностью
+        /// </summary>
+        /// <param name="rows">Число строк</param>
+        /// <param name="cols">Число столбцов</param>
         public Matrix(int rows, int cols)
         {
             Random rnd = new();
@@ -45,6 +50,13 @@ namespace MatrixExam
             }
         }
 
+        /// <summary>
+        /// Конструктор с фиксированой размерностью и диапазоном элементов
+        /// </summary>
+        /// <param name="rows">Число строк</param>
+        /// <param name="cols">Число столбцов</param>
+        /// <param name="min">Минимальное значение</param>
+        /// <param name="max">Максимальное значение</param>
         public Matrix(int rows, int cols, int min, int max)
         {
             Random rnd = new();
@@ -59,7 +71,14 @@ namespace MatrixExam
                 }
             }
         }
+        /// <summary>
+        /// Количество строк матрицы
+        /// </summary>
         public int N => n;
+
+        /// <summary>
+        /// Количество колонок матрицы
+        /// </summary>
         public int M => m;
 
         /// <summary>
@@ -73,6 +92,9 @@ namespace MatrixExam
             this.values = values;
         }
 
+        /// <summary>
+        /// Гетер и сетер для свободных коэффициентов матрицы
+        /// </summary>
         public double[] Coefs
         {
             get
@@ -90,7 +112,6 @@ namespace MatrixExam
         /// </summary>
         /// <param name="m">Передаваемая матрица</param>
         /// <returns></returns>
-       
         private bool ErrorCheck(Matrix m)
         {
             return this.N == m.N && this.M == m.M;
@@ -129,21 +150,6 @@ namespace MatrixExam
         {
             return values[i, j] = value;
         }
-
-        public Matrix CreateMatrix(int N, int M, int min, int max)
-        {
-            Matrix NewMat = new(values);
-            Random r = new Random();
-            for (int i = 0; i<N; i++)
-            {
-                for (int j = 0; j < M; j++)
-                {
-                    NewMat.SetElem(i, j, r.Next(min, max));
-                }
-            }
-            return NewMat;
-        }
-
 
         /// <summary>
         /// Функция умножения матрицы на число
@@ -232,6 +238,10 @@ namespace MatrixExam
             return new Matrix(res);
         }
 
+        /// <summary>
+        /// Проверка на симметричность матрицы
+        /// </summary>
+        /// <returns>True\false, симметричная или нет</returns>
         public bool IsSymmetric()
         {
             if (N != M)
@@ -304,6 +314,12 @@ namespace MatrixExam
                 .Select(i => string.Join(" ", Enumerable.Range(0, m)
                 .Select(j => Math.Round(values[i, j], 3).ToString().PadRight(maxLength)))));
         }
+
+        /// <summary>
+        /// Копирование матрицы и замена колонки на свободные коэффициенты
+        /// </summary>
+        /// <param name="Column">номер колонки</param>
+        /// <returns>новая матрица</returns>
         public double[,] formTempMatrix(int Column)
         {
             double[,] tempMatrix = new double[N, N];
@@ -315,6 +331,10 @@ namespace MatrixExam
             return tempMatrix;
         }
 
+        /// <summary>
+        /// Транспонирование матрицы
+        /// </summary>
+        /// <returns>Новая матрица</returns>
         public Matrix Transpose()
         {
             double[,] transposedMatrix = new double[m, n];
