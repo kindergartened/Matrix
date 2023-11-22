@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 
 namespace MatrixExam
 {
     public class SquareMatrix : Matrix
     {
+        private double[,] augmentedMatrix; // Расширенная матрица
         /// <summary>
         /// конструктор по умолчанию
         /// </summary>
@@ -129,113 +132,92 @@ namespace MatrixExam
         /// метод для вычисления обратной матрицы
         /// </summary>
         /// <returns>обратную матрицу</returns>
-        /// <exception cref="InvalidOperationException"></exception>
-        public SquareMatrix Inverse()
+        public SquareMatrix InvertMatrix()
         {
-            if (N != M)
+            InitializeAugmentedMatrix(); // Инициализация расширенной матрицы
+            for (int i = 0; i < N; i++)
             {
-                throw new InvalidOperationException("Матрица должна быть квадратной для вычисления обратной матрицы.");
+                Transform_Line(i);
+                Transform_Lines_Parallel(i);
             }
 
-            double[,] augmentedMatrix = new double[n, 2 * n];
-            double determinant = CalculateDeterminant(values, n);
-            double[,] inverseMatrix;
-
-            if (determinant == 0)
+            // Применение обратного хода
+            for (int i = N - 1; i > 0; i--)
             {
-                throw new InvalidOperationException("Матрица не имеет обратной матрицы (определитель равен нулю).");
-            }
-
-            if (n == 2 && m == 2)
-            {
-                inverseMatrix = new double[n, m];
-                inverseMatrix[0, 0] = values[1, 1] / determinant;
-                inverseMatrix[0, 1] = -values[0, 1] / determinant;
-                inverseMatrix[1, 0] = -values[1, 0] / determinant;
-                inverseMatrix[1, 1] = values[0, 0] / determinant;
-                return new SquareMatrix(inverseMatrix);
-            }
-
-            // Создаем расширенную матрицу [A | I]
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
+                Parallel.For(0, i, j =>
                 {
-                    augmentedMatrix[i, j] = values[i, j];
-                    augmentedMatrix[i, j + n] = (i == j) ? 1.0 : 0.0;
-                }
-            }
-
-            // Приводим к верхнетреугольному виду
-            for (int i = 0; i < n; i++)
-            {
-                // Находим главный элемент в текущем столбце
-                int pivotRow = i;
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (Math.Abs(augmentedMatrix[j, i]) > Math.Abs(augmentedMatrix[pivotRow, i]))
+                    double t = -augmentedMatrix[j, i];
+                    for (int q = 0; q < N * 2; q++)
                     {
-                        pivotRow = j;
+                        augmentedMatrix[j, q] = augmentedMatrix[j, q] + t * augmentedMatrix[i, q];
                     }
-                }
-
-                // Обмениваем строки
-                for (int k = 0; k < 2 * n; k++)
-                {
-                    double temp = augmentedMatrix[i, k];
-                    augmentedMatrix[i, k] = augmentedMatrix[pivotRow, k];
-                    augmentedMatrix[pivotRow, k] = temp;
-                }
-
-                // Обнуляем элементы под главным элементом
-                for (int j = i + 1; j < n; j++)
-                {
-                    double factor = augmentedMatrix[j, i] / augmentedMatrix[i, i];
-                    for (int k = 0; k < 2 * n; k++)
-                    {
-                        augmentedMatrix[j, k] -= factor * augmentedMatrix[i, k];
-                    }
-                }
+                });
             }
 
-            // Приводим к диагональному виду
-            for (int i = n - 1; i >= 0; i--)
+            // Приведение левой половины расширенной матрицы к единичной матрице
+            Parallel.For(0, N, i =>
             {
-                double pivot = augmentedMatrix[i, i];
-                if (pivot == 0.0)
+                double t = augmentedMatrix[i, i];
+                Parallel.For(0, N * 2, j =>
                 {
-                    throw new InvalidOperationException("Матрица не имеет обратной матрицы (определитель равен нулю).");
-                }
+                    augmentedMatrix[i, j] = augmentedMatrix[i, j] / t;
+                });
+            });
 
-                // Нормализуем строку
-                for (int k = 0; k < 2 * n; k++)
-                {
-                    augmentedMatrix[i, k] /= pivot;
-                }
-
-                // Обнуляем элементы над главным элементом
-                for (int j = i - 1; j >= 0; j--)
-                {
-                    double factor = augmentedMatrix[j, i];
-                    for (int k = 0; k < 2 * n; k++)
-                    {
-                        augmentedMatrix[j, k] -= factor * augmentedMatrix[i, k];
-                    }
-                }
-            }
-
-            // Извлекаем обратную матрицу из правой части расширенной матрицы
-            inverseMatrix = new double[n, n];
-            for (int i = 0; i < n; i++)
+            // Извлечение обратной матрицы из правой половины расширенной матрицы
+            double[,] inverseMatrix = new double[N, N];
+            Parallel.For(0, N, i =>
             {
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j < N; j++)
                 {
-                    inverseMatrix[i, j] = augmentedMatrix[i, j + n];
+                    inverseMatrix[i, j] = augmentedMatrix[i, j + N];
                 }
-            }
+            });
 
             return new SquareMatrix(inverseMatrix);
         }
+
+        // Инициализация расширенной матрицы
+        private void InitializeAugmentedMatrix()
+        {
+            augmentedMatrix = new double[N, 2 * N];
+            Parallel.For(0, N, i =>
+            {
+                for (int j = 0; j < N; j++)
+                {
+                    augmentedMatrix[i, j] = values[i, j];
+                }
+
+                augmentedMatrix[i, N + i] = 1.0;
+            });
+        }
+
+        // Элементарное преобразование для i-той строки
+        private void Transform_Line(int i)
+        {
+            double t = augmentedMatrix[i, i];
+            Parallel.For(0, N * 2, j =>
+            {
+                augmentedMatrix[i, j] = augmentedMatrix[i, j] / t;
+            });
+        }
+
+        // Элементарное преобразование для всех строк, кроме i-той (параллельная версия)
+        private void Transform_Lines_Parallel(int i)
+        {
+            Parallel.For(0, N, j =>
+            {
+                if (j != i)
+                {
+                    double t = -augmentedMatrix[j, i];
+                    for (int q = 0; q < N * 2; q++)
+                    {
+                        augmentedMatrix[j, q] = augmentedMatrix[j, q] + t * augmentedMatrix[i, q];
+                    }
+                }
+            });
+        }
+
         /// <summary>
         /// метод CalculateDeterminant для вычисления детерминанта
         /// </summary>

@@ -291,11 +291,11 @@ namespace MatrixForm
             {
                 if (isFirst.Checked)
                 {
-                    resultMatrix.Text = matrix1.Inverse().ToString();
+                    resultMatrix.Text = matrix1.InvertMatrix().ToString();
                 }
                 else
-                {
-                    resultMatrix.Text = matrix2.Inverse().ToString();
+                { 
+                    resultMatrix.Text = matrix2.InvertMatrix().ToString();
                 }
             }
             catch (Exception err)
