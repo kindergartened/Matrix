@@ -128,10 +128,11 @@ namespace MatrixExam
 
             return true;
         }
+
         /// <summary>
-        /// метод для вычисления обратной матрицы
+        /// Метод для нахождения обратной матрицы.
         /// </summary>
-        /// <returns>обратную матрицу</returns>
+        /// <returns>Обратная матрица</returns>
         public SquareMatrix InvertMatrix()
         {
             InitializeAugmentedMatrix(); // Инициализация расширенной матрицы
@@ -177,7 +178,9 @@ namespace MatrixExam
             return new SquareMatrix(inverseMatrix);
         }
 
-        // Инициализация расширенной матрицы
+        /// <summary>
+        /// Инициализация расширенной матрицы.
+        /// </summary>
         private void InitializeAugmentedMatrix()
         {
             augmentedMatrix = new double[N, 2 * N];
@@ -192,7 +195,10 @@ namespace MatrixExam
             });
         }
 
-        // Элементарное преобразование для i-той строки
+        /// <summary>
+        /// Элементарное преобразование для i-той строки.
+        /// </summary>
+        /// <param name="i">Индекс строки</param>
         private void Transform_Line(int i)
         {
             double t = augmentedMatrix[i, i];
@@ -202,7 +208,10 @@ namespace MatrixExam
             });
         }
 
-        // Элементарное преобразование для всех строк, кроме i-той (параллельная версия)
+        /// <summary>
+        /// Элементарное преобразование для всех строк, кроме i-той (параллельная версия).
+        /// </summary>
+        /// <param name="i">Индекс строки</param>
         private void Transform_Lines_Parallel(int i)
         {
             Parallel.For(0, N, j =>
