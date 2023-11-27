@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             firstMatrix = new RichTextBox();
             addition = new Button();
             isSquare = new CheckBox();
@@ -73,6 +74,10 @@
             button1 = new Button();
             currentCoefs = new Label();
             transpose = new Button();
+            moveToSecond = new Button();
+            genCoefs = new Button();
+            coefCount = new TextBox();
+            moveToFirst = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -144,7 +149,7 @@
             // isSymmetric
             // 
             isSymmetric.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            isSymmetric.Location = new Point(1239, 729);
+            isSymmetric.Location = new Point(1239, 707);
             isSymmetric.Name = "isSymmetric";
             isSymmetric.Size = new Size(499, 51);
             isSymmetric.TabIndex = 6;
@@ -155,7 +160,7 @@
             // determinant
             // 
             determinant.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            determinant.Location = new Point(1239, 786);
+            determinant.Location = new Point(1239, 764);
             determinant.Name = "determinant";
             determinant.Size = new Size(196, 51);
             determinant.TabIndex = 7;
@@ -166,7 +171,7 @@
             // solve
             // 
             solve.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            solve.Location = new Point(1542, 786);
+            solve.Location = new Point(1542, 764);
             solve.Name = "solve";
             solve.Size = new Size(196, 51);
             solve.TabIndex = 8;
@@ -179,23 +184,23 @@
             resultMatrix.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
             resultMatrix.Location = new Point(41, 624);
             resultMatrix.Name = "resultMatrix";
-            resultMatrix.Size = new Size(1019, 388);
+            resultMatrix.Size = new Size(1019, 376);
             resultMatrix.TabIndex = 9;
             resultMatrix.Text = " ";
             // 
             // freeCoefs
             // 
             freeCoefs.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            freeCoefs.Location = new Point(1125, 918);
+            freeCoefs.Location = new Point(1097, 906);
             freeCoefs.Name = "freeCoefs";
-            freeCoefs.Size = new Size(477, 32);
+            freeCoefs.Size = new Size(399, 32);
             freeCoefs.TabIndex = 10;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(1125, 880);
+            label1.Location = new Point(1097, 868);
             label1.Name = "label1";
             label1.Size = new Size(453, 25);
             label1.TabIndex = 11;
@@ -406,7 +411,7 @@
             // inverse
             // 
             inverse.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            inverse.Location = new Point(1239, 672);
+            inverse.Location = new Point(1239, 650);
             inverse.Name = "inverse";
             inverse.Size = new Size(242, 51);
             inverse.TabIndex = 34;
@@ -509,11 +514,11 @@
             // 
             button1.BackColor = SystemColors.MenuHighlight;
             button1.FlatStyle = FlatStyle.Popup;
-            button1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             button1.ForeColor = SystemColors.Window;
-            button1.Location = new Point(1656, 899);
+            button1.Location = new Point(1520, 902);
             button1.Name = "button1";
-            button1.Size = new Size(196, 51);
+            button1.Size = new Size(152, 39);
             button1.TabIndex = 42;
             button1.Text = "Подтвердить";
             button1.UseVisualStyleBackColor = false;
@@ -524,7 +529,7 @@
             currentCoefs.AutoSize = true;
             currentCoefs.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             currentCoefs.ForeColor = SystemColors.ButtonShadow;
-            currentCoefs.Location = new Point(1125, 975);
+            currentCoefs.Location = new Point(1097, 963);
             currentCoefs.Name = "currentCoefs";
             currentCoefs.Size = new Size(226, 25);
             currentCoefs.TabIndex = 43;
@@ -533,7 +538,7 @@
             // transpose
             // 
             transpose.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            transpose.Location = new Point(1496, 672);
+            transpose.Location = new Point(1496, 650);
             transpose.Name = "transpose";
             transpose.Size = new Size(242, 51);
             transpose.TabIndex = 44;
@@ -541,11 +546,64 @@
             transpose.UseVisualStyleBackColor = true;
             transpose.Click += transpose_Click;
             // 
+            // moveToSecond
+            // 
+            moveToSecond.BackColor = SystemColors.Window;
+            moveToSecond.BackgroundImage = (Image)resources.GetObject("moveToSecond.BackgroundImage");
+            moveToSecond.BackgroundImageLayout = ImageLayout.Center;
+            moveToSecond.Cursor = Cursors.Hand;
+            moveToSecond.FlatStyle = FlatStyle.Popup;
+            moveToSecond.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            moveToSecond.Location = new Point(827, 568);
+            moveToSecond.Name = "moveToSecond";
+            moveToSecond.Size = new Size(44, 43);
+            moveToSecond.TabIndex = 45;
+            moveToSecond.UseVisualStyleBackColor = false;
+            moveToSecond.Click += moveToSecond_Click;
+            // 
+            // genCoefs
+            // 
+            genCoefs.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            genCoefs.Location = new Point(1718, 874);
+            genCoefs.Name = "genCoefs";
+            genCoefs.Size = new Size(158, 39);
+            genCoefs.TabIndex = 46;
+            genCoefs.Text = "Сгенерировать";
+            genCoefs.UseVisualStyleBackColor = true;
+            genCoefs.Click += genCoefs_Click;
+            // 
+            // coefCount
+            // 
+            coefCount.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            coefCount.Location = new Point(1718, 919);
+            coefCount.Name = "coefCount";
+            coefCount.Size = new Size(158, 32);
+            coefCount.TabIndex = 47;
+            // 
+            // moveToFirst
+            // 
+            moveToFirst.BackColor = SystemColors.Window;
+            moveToFirst.BackgroundImage = (Image)resources.GetObject("moveToFirst.BackgroundImage");
+            moveToFirst.BackgroundImageLayout = ImageLayout.Center;
+            moveToFirst.Cursor = Cursors.Hand;
+            moveToFirst.FlatStyle = FlatStyle.Popup;
+            moveToFirst.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            moveToFirst.Location = new Point(248, 568);
+            moveToFirst.Name = "moveToFirst";
+            moveToFirst.Size = new Size(44, 43);
+            moveToFirst.TabIndex = 48;
+            moveToFirst.UseVisualStyleBackColor = false;
+            moveToFirst.Click += moveToFirst_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1904, 1041);
+            ClientSize = new Size(1904, 1021);
+            Controls.Add(moveToFirst);
+            Controls.Add(coefCount);
+            Controls.Add(genCoefs);
+            Controls.Add(moveToSecond);
             Controls.Add(transpose);
             Controls.Add(currentCoefs);
             Controls.Add(button1);
@@ -642,5 +700,9 @@
         private Button button1;
         private Label currentCoefs;
         private Button transpose;
+        private Button moveToSecond;
+        private Button genCoefs;
+        private TextBox coefCount;
+        private Button moveToFirst;
     }
 }

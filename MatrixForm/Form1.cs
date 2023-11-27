@@ -11,6 +11,7 @@ namespace MatrixForm
 
         private dynamic matrix1;
         private dynamic matrix2;
+        private dynamic result;
         private void parseMatrix_Click(object sender, EventArgs e)
         {
             try
@@ -172,7 +173,8 @@ namespace MatrixForm
         {
             try
             {
-                resultMatrix.Text = matrix1.MatAdd(matrix2).ToString();
+                result = matrix1.MatMul(matrix2).ToString();
+                resultMatrix.Text = result.ToString();
             }
             catch (Exception err)
             {
@@ -184,7 +186,8 @@ namespace MatrixForm
         {
             try
             {
-                resultMatrix.Text = matrix1.MatMul(matrix2).ToString();
+                result = matrix1.MatMul(matrix2);
+                resultMatrix.Text = result.ToString();
             }
             catch (Exception err)
             {
@@ -196,7 +199,8 @@ namespace MatrixForm
         {
             try
             {
-                resultMatrix.Text = matrix1.MatSub(matrix2).ToString();
+                result = matrix1.MatSub(matrix2);
+                resultMatrix.Text = result.ToString();
             }
             catch (Exception err)
             {
@@ -291,11 +295,13 @@ namespace MatrixForm
             {
                 if (isFirst.Checked)
                 {
-                    resultMatrix.Text = matrix1.InvertMatrix().ToString();
+                    result = matrix1.InvertMatrix();
+                    resultMatrix.Text = result.ToString();
                 }
                 else
-                { 
-                    resultMatrix.Text = matrix2.InvertMatrix().ToString();
+                {
+                    result = matrix2.InvertMatrix();
+                    resultMatrix.Text = result.ToString();
                 }
             }
             catch (Exception err)
@@ -310,17 +316,58 @@ namespace MatrixForm
             {
                 if (isFirst.Checked)
                 {
-                    resultMatrix.Text = matrix1.Transpose().ToString();
+                    result = matrix1.Transpose();
+                    resultMatrix.Text = result.ToString();
                 }
                 else
                 {
-                    resultMatrix.Text = matrix2.Transpose().ToString();
+                    result = matrix2.Transpose();
+                    resultMatrix.Text = result.ToString();
                 }
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
             }
+        }
+
+        private void genCoefs_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (coefCount.Text.Length == 0)
+                {
+                    MessageBox.Show("Введите количество коэффициентов");
+                }
+                Random random = new Random();
+                double[] arr = Enumerable.Range(1, int.Parse(coefCount.Text)).Select(i => i * random.NextDouble() * Math.PI).ToArray();
+                if (isFirst.Checked)
+                {
+                    matrix1.Coefs = arr;
+                    currentCoefs.Text = "Текущие коэффициенты матрицы 1: " + string.Join(", ", arr);
+                }
+                else
+                {
+                    matrix2.Coefs = arr;
+                    currentCoefs.Text = "Текущие коэффициенты матрицы 2: " + string.Join(", ", arr);
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+
+        private void moveToFirst_Click(object sender, EventArgs e)
+        {
+            matrix1 = result;
+            firstMatrix.Text = matrix1.ToString();
+        }
+
+        private void moveToSecond_Click(object sender, EventArgs e)
+        {
+            matrix2 = result;
+            secondMatrix.Text = matrix2.ToString();
         }
     }
 }
